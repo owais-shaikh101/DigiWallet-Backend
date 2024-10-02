@@ -149,17 +149,17 @@ const deposit = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
 
   if (user) {
-    // const transaction = new Transaction({
-    //   sender: user._id,
-    //   receiver: user._id,
-    //   amount: amount,
-    //   transactionId: crypto.randomBytes(5).toString('hex'),
-    //   type: 'deposit',
-    //   reference: 'payment reference',
-    //   status: 'success',
-    // })
+    const transaction = new Transaction({
+      sender: user._id,
+      receiver: user._id,
+      amount: amount,
+      transactionId: crypto.randomBytes(5).toString('hex'),
+      type: 'deposit',
+      reference: 'payment reference',
+      status: 'success',
+    })
 
-    // await transaction.save()
+    await transaction.save()
     await User.findByIdAndUpdate(
       user._id,
       { $inc: { balance: amount } },
